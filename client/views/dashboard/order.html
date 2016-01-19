@@ -1,0 +1,63 @@
+<template name="order">
+  <div>
+  <span style="{{mark_style}}">{{truncated_title}}...</span>
+  <span class="right floated">
+  *{{num}}&nbsp;&nbsp;¥{{total_fee}}
+  </span>
+  </div>
+</template>
+
+<template name="order_zero">
+  <div>
+  <span style="{{mark_style}}">{{truncated_title}}...</span>
+  <span class="right floated">
+  *{{num}}
+  </span>
+  </div>
+</template>
+
+<template name="order_fresh">
+  {{#if cold_chain_needed}}
+  <div>
+  <span style="{{mark_style}}">{{truncated_title}}...</span>
+  <span class="right floated">
+  *{{num}}&nbsp;&nbsp;¥{{total_fee}}
+  </span>
+  </div>
+  {{/if}}
+</template>
+
+<template name="order_zero_fresh">
+  {{#if cold_chain_needed}}
+  <div>
+  <span style="{{mark_style}}">{{truncated_title}}...</span>
+  <span class="right floated">
+  *{{num}}
+  </span>
+  </div>
+  {{/if}}
+</template>
+
+<template name="order_nonfresh">
+  {{#if cold_chain_needed}}
+  {{else}}
+  <div>
+  <span style="{{mark_style}}">{{truncated_title}}...</span>
+  <span class="right floated">
+  *{{num}}&nbsp;&nbsp;¥{{total_fee}}
+  </span>
+  </div>
+  {{/if}}
+</template>
+
+<template name="order_zero_nonfresh">
+  {{#if cold_chain_needed}}
+  {{else}}
+  <div>
+  <span style="{{mark_style}}">{{truncated_title}}...</span>
+  <span class="right floated">
+  *{{num}}
+  </span>
+  </div>
+  {{/if}}
+</template>

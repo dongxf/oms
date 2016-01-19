@@ -1,0 +1,86 @@
+<template name="tradeItem">
+  <div class="ui card">
+    <div class="content">
+      <!--<img class="right floated mini ui image" src="{{order_thumb_path}}">-->
+      <span class="linerSelector right floated"><i class="{{shipping_icon}}"></i>{{liner}}</span>
+      <div class="header">
+        {{contact_name}}  {{contact_mobile}}
+      </div>
+      <div class="tradeReminder meta">
+        <div>{{tid}} {{status_label}}</div>
+        {{#if noticed}}
+        {{else}}
+          <script>var s = new Audio('/sounds/hurry_money.wav'); s.play();</script>
+        {{/if}}
+      </div>
+      <div><!-- class="description"-->
+        <div>{{shipping_address}}</div>
+        {{#if should_hide_amount}}
+          {{#each orders}}
+            {{>order_zero_nonfresh}}
+          {{/each}}
+        {{else}}
+          {{#each orders}}
+            {{>order_nonfresh}}
+          {{/each}}
+        {{/if}}
+        <div><i class="leaf icon"></i><i class="leaf icon"></i><i class="leaf icon"></i><i class="leaf icon"></i><i class="leaf icon"></i><i class="leaf icon"></i></div>
+        {{#if should_hide_amount}}
+          {{#each orders}}
+            {{>order_zero_fresh}}
+          {{/each}}
+        {{else}}
+          {{#each orders}}
+            {{>order_fresh}}
+          {{/each}}
+        {{/if}}
+        <hr>
+        {{#if discountApplied}}
+          <div>
+            <span>[现金抵扣]</span>
+            <span class="right floated">
+              -¥{{discount_fee}}
+            </span>
+          </div>
+        {{/if}}
+        {{#if postfeeApplied}}
+        <div>
+          <span>[配送费用]</span>
+          <span class="right floated">
+            ¥{{post_fee}}
+          </span>
+        </div>
+        {{/if}}
+      </div>
+    <!--
+    </div>
+    <div class="extra content">
+    <div>
+    -->
+      <div class="payment">
+        <span class="right floated" style="{{pay_style}}">
+          {{#if should_hide_amount}}
+          {{else}}
+            ¥{{payment}}
+          {{/if}}
+        </span>
+        <div style="font-size: 8px">{{created}}</div>
+        <div style="font-size: 8px">{{pay_time}} {{pay_type_nick}}</div>
+        <div style="font-size: 8px">{{outer_tid}}</div>
+      {{#if buyerMessageLeft}}
+        <div style="font-size: 10px">买家：{{buyer_message}}</div>
+      {{/if}}
+      {{#if tradeMemoExisted}}
+        <div style="font-size: 10px">卖家：{{trade_memo}}</div>
+      {{/if}}
+      </div>
+    </div>
+    <div class="extra content">
+      <!--
+      <div style="font-size: 8px; color: black"><span><i class="comments icon"></i>微信 foodtrust</span><span class="right floated">丰巢：有机生活，点滴关爱</span></div>
+      -->
+      <div style="font-size: 8px; color: black"><span>沃土工坊</span><span><i class="comments icon"></i>wotugongfang</span><span class="right floated">有机生活点滴关爱</span></div>
+      <div style="font-size: 8px; color: black"><span>服务电话</span><span><i class="call icon"></i>4000432013</span><span class="right floated">不满意无障碍退换</span></div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,12 @@
+@media all {
+	.page-break	{ display: none; }
+}
+
+@media print {
+	/*div { float: none !important; position: static !important; display: inline;
+					box-sizing: content-box !important; overflow: visible !important;
+	}*/
+	.menu { display: none; }
+	.cards { page-break-inside: avoid; }
+	//.page-break	{ display: block; page-break-before: always; }
+}

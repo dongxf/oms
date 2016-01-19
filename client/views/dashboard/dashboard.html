@@ -1,0 +1,25 @@
+<template name="dashboard">
+    <h1></h1>
+    {{#if printModeActive}}
+      {{#each filtered_trades_pair}}
+          <div class="ui cards">
+            {{#if trade_a}}
+              {{>tradeItem trade_a}}
+            {{/if}}
+            {{#if trade_b}}
+              {{>tradeItem trade_b}}
+            {{/if}}
+          </div>
+      {{/each}}
+    {{else}}
+      {{#if reportModeActive}}
+        {{{reportHtml}}}
+      {{else}}
+        <div class="ui cards">
+          {{#each filtered_trades}}
+            {{>tradeItem}}
+          {{/each}}
+        </div>
+      {{/if}}
+    {{/if}}
+</template>

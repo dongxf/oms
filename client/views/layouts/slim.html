@@ -1,0 +1,54 @@
+<template name="slimLayout">
+  <div class="ui inverted labeled icon left inline vertical sidebar menu">
+    {{#each sidebarLinks}}
+      <a href="#" class="item {{className}}">
+        <i class="{{icon}} icon"></i> {{label}}
+      </a>
+    {{/each}}
+  </div>
+
+  <div class="ui fixed inverted main menu">
+    <div class="container">
+      <a class="launch item">
+        <i class="content icon"></i>
+        ¥{{tradesAmount}}({{tradesCount}})
+      </a>
+      <div class="right menu">
+        <a href="#" class="item js-report-mode">
+          <i class="{{reportModeColor}} file excel outline icon"></i>
+        </a>
+        <a href="#" class="item js-print-mode">
+          <i class="{{printModeColor}} print icon"></i>
+        </a>
+        <div class="ui dropdown item">
+          {{statusFilter}}<i class="dropdown icon"></i>
+          <div class="menu">
+            <a class="item js-all-trades">所有的</a>
+            <a class="item js-not-delivered">待发货</a>
+            <a class="item js-shipped">待收货</a>
+            <a class="item js-finished">已完成</a>
+            <a class="item js-not-checked-out">未提交</a>
+            <a class="item js-closed">已退款</a>
+            <a class="item js-buyer-closed">被取消</a>
+          </div>
+        </div>
+        <div class="ui dropdown item">
+          {{shippingFilter}}<i class="dropdown icon"></i>
+          <div class="menu">
+            <a class="item js-all-shipping-types">全部方式</a>
+            <a class="item js-fetch-only">到店自提</a>
+            <a class="item js-express-only">配送上门</a>
+            <a class="item js-kd-only">只看快递</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="pusher">
+    <div class="ui basic bottom attached segment">
+      {{>yield}}
+    </div>
+  </div>
+</template>
