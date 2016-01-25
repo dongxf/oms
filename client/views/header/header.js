@@ -7,6 +7,9 @@ Template.header.helpers({
   showLogin: function () {
     return Session.get('showLogin');
   },
+  brandName: function() {
+    return BRAND_NAME;
+  },
   isActive: function () {
     return Session.get('isActive') ? 'active' : '';
   },

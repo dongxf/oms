@@ -1,4 +1,4 @@
-Template['tradeItem'].helpers({
+Template.tradeItem.helpers({
   contact_name: function(){
     var cname;
     if (this.shipping_type == 'fetch') cname = this.fetch_detail.fetcher_name;
@@ -6,6 +6,21 @@ Template['tradeItem'].helpers({
     if (cname !== this.buyer_nick ) cname += '('+this.buyer_nick+')';
     if (cname === '') cname= '('+this.buyer_nick+')';
     return cname;
+  },
+  brand_name: function(){
+    return BRAND_NAME;
+  },
+  wechat_id: function(){
+    return WECHAT_ID;
+  },
+  phone: function(){
+    return PHONE;
+  },
+  slogan: function(){
+    return SLOGAN;
+  },
+  commitment: function(){
+    return COMMITMENT;
   },
   discountApplied: function(){
     return this.discount_fee=='0.00' ? false : true;

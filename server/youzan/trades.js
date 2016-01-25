@@ -3,7 +3,7 @@
 Meteor.methods({
   syncYouzanTrades: function(params){
     check(params,Match.Any);
-    var hub = Meteor.settings.hub;
+    var hub = Meteor.settings.public.hub;
     var appid = Meteor.settings.yzAppId[hub];
     var appsecret = Meteor.settings.yzAppSecret[hub];
     var proxy = null;
