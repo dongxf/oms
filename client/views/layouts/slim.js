@@ -50,14 +50,17 @@ Template.slimLayout.helpers({
   },
   viewFilter: function(){
     if (Session.get('viewFilter')) return Session.get('viewFilter');
+    Session.set('viewMode','monitor');
     return '订单总览';
   },
   shippingFilter: function(){
     if (Session.get('shippingFilter')) return Session.get('shippingFilter');
-    return '配送方式';
+    Session.set('shippingType','all');
+    return '全部方式';
   },
   statusFilter: function(){
     if (Session.get('statusFilter')) return Session.get('statusFilter');
+    Session.set('tradeType','not-delivered');
     return '订单状态';
   },
 });
@@ -107,44 +110,36 @@ Template.slimLayout.events({
     event.preventDefault();
     Meteor.logout();
   },
-  'click .js-fetch': function(event){
-    event.preventDefault();
-    Session.set('shipping-types','fetch');
-  },
-  'click .js-express': function(event){
-    event.preventDefault();
-    Session.set('shipping-types','express');
-  },
-  'click .js-shipping-all': function(event){
-    event.preventDefault();
-    Session.set('shipping-types','all');
-  },
   'click .js-not-delivered': function(event){
     event.preventDefault();
-    Session.set('tradeTypes','not-delivered');
+    Session.set('tradeType','not-delivered');
   },
   'click .js-shipped': function(event){
     event.preventDefault();
-    Session.set('tradeTypes','shipped');
+    Session.set('tradeType','shipped');
   },
   'click .js-finished': function(event){
     event.preventDefault();
-    Session.set('tradeTypes','finished');
+    Session.set('tradeType','finished');
+  },
+  'click .js-validated-orders': function(event){
+    event.preventDefault();
+    Session.set('tradeType','validated');
   },
   'click .js-not-checked-out': function(event){
     event.preventDefault();
-    Session.set('tradeTypes','not-checked-out');
+    Session.set('tradeType','not-checked-out');
   },
   'click .js-closed': function(event){
     event.preventDefault();
-    Session.set('tradeTypes','closed');
+    Session.set('tradeType','closed');
   },
   'click .js-buyer-closed': function(event){
     event.preventDefault();
-    Session.set('tradeTypes','buyer-closed');
+    Session.set('tradeType','buyer-closed');
   },
   'click .js-all-trades': function(event){
     event.preventDefault();
-    Session.set('tradeTypes','all-trades');
+    Session.set('tradeType','all-trades');
   }
 });

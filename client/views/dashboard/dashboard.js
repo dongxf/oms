@@ -17,7 +17,7 @@ Template.registerHelper('trades_filters', function(){
           break;
         default:
           sparams={};
-          Session.set('shippingFilter','全部类型');
+          Session.set('shippingFilter','全部方式');
       }
   }
   var vparams={};
@@ -42,37 +42,46 @@ Template.registerHelper('trades_filters', function(){
           break;
       }
   }
-  var ttypes = Session.get('tradeTypes');
+  var ttypes = Session.get('tradeType');
   var tparams={};
   if (ttypes){
     switch(ttypes) {
       case 'not-delivered':
         tparams={status: {$in: ['WAIT_SELLER_SEND_GOODS']}};
-        Session.set('statusFilter','待发货');
+        Session.set('statusFilter','等待发货');
         break;
       case 'shipped':
         tparams={status: {$in: ['WAIT_BUYER_CONFIRM_GOODS']}};
-        Session.set('statusFilter','待收货');
+        Session.set('statusFilter','等待收货');
         break;
       case 'finished':
         tparams={status: {$in: ['TRADE_BUYER_SIGNED']}};
-        Session.set('statusFilter','已完成');
+        Session.set('statusFilter','已经完成');
         break;
       case 'not-checked-out':
         tparams={status: {$in: ['TRADE_NO_CREATE_PAY','WAIT_BUYER_PAY']}};
-        Session.set('statusFilter','未提交');
+        Session.set('statusFilter','尚未提交');
         break;
       case 'closed':
         tparams={status: {$in: ['TRADE_CLOSED']}};
-        Session.set('statusFilter','已退款');
+        Session.set('statusFilter','已经退款');
         break;
       case 'buyer-closed':
         tparams={status: {$in: ['TRADE_CLOSED_BY_USER']}};
-        Session.set('statusFilter','被取消');
+        Session.set('statusFilter','已被取消');
         break;
-      default:
+      case 'validated':
+        tparams={status: {$in: ['WAIT_SELLER_SEND_GOODS','WAIT_BUYER_CONFIRM_GOODS','TRADE_BUYER_SIGNED']}};
+        Session.set('statusFilter','所有有效');
+        break;
+      case 'all-trades':
         tparams={};
-        Session.set('statusFilter','所有的');
+        Session.set('statusFilter','全部订单');
+      default:
+        tparams={status: {$in: ['WAIT_BUYER_CONFIRM_GOODS']}};
+        Session.set('statusFilter','等待收货');
+        Session.set('tradeType','not-delivered');
+        break;
     }
   }
   var params = _.extend(sparams,tparams);
