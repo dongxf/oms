@@ -135,7 +135,7 @@ Template.dashboard.helpers({
     var dueTrades = Trades.find(cod_params,{sort: {update_time: 1}}).fetch();
     var cod_amount = 0.0;
     Trades.find(cod_params).map(function(doc){ cod_amount+=parseFloat(doc.payment);});
-    var phead = "<h2>收入分类明细表-货到付款 总额："+cod_amount+"("+dueTrades.length+")</h2>";
+    var phead = "<h2>收入分类明细表-货到付款 总额："+cod_amount.toFixed(2)+"("+dueTrades.length+")</h2>";
     var thead = "<table class='ui celled structured table'>"+
       "<thead><tr>"+
         "<th>订单号</th><th>名称</th><th>电话</th><th>支付</th><th>应付</th><th>商品</th><th>已发</th><th>数量</th><th>小计</th><th>备注</th>"+
@@ -188,7 +188,8 @@ Template.dashboard.helpers({
     var wxTrades = Trades.find(wx_params,{sort: {update_time: 1}}).fetch();
     var wx_amount = 0.0;
     Trades.find(wx_params).map(function(doc){ wx_amount+=parseFloat(doc.payment);});
-    phead = "<h2>收入分类明细表-微信支付 总额："+wx_amount+"("+wxTrades.length+")</h2>";
+    //phead = "<h2>收入分类明细表-微信支付 总额："+wx_amount+"("+wxTrades.length+")</h2>";
+    phead = "<h2>收入分类明细表-微信支付 总额："+wx_amount.toFixed(2)+"("+wxTrades.length+")"+"</h2>";
     thead = "<table class='ui celled structured table'>"+
       "<thead><tr>"+
         "<th>订单号</th><th>名称</th><th>电话</th><th>支付</th><th>应付</th><th>商品</th><th>已发</th><th>数量</th><th>小计</th><th>备注</th>"+
