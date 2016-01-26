@@ -122,6 +122,57 @@ Template.dashboard.helpers({
     }
     return tradesPair;
   },
+  cashierHtml: function( ) {
+
+    var params = UI._globalHelpers.trades_filters();
+    Session.set('tradesCount',Trades.find(params).fetch().length);
+    var trades_amount = 0.0;
+    Trades.find(params).map(function(doc){ trades_amount+=parseFloat(doc.payment);});
+    Session.set('tradesAmount',trades_amount.toFixed(2));
+
+    var cod_params = _.extend(UI._globalHelpers.trades_filters(),{pay_type: {$in: ['CODPAY']}});
+    var dueTrades = Trades.find(cod_params,{sort: {update_time: 1}}).fetch();
+    var cod_amount = 0.0;
+    Trades.find(cod_params).map(function(doc){ cod_amount+=parseFloat(doc.payment);});
+    var phead = "<h2>收入分类明细表-货到付款 总额："+cod_amount+"("+dueTrades.length+")</h2>";
+    var thead = "<table class='ui celled structured table'>"+
+      "<thead><tr>"+
+        "<th>订单号</th><th>名称</th><th>支付</th><th>应付</th><th>商品</th><th>备注</th>"+
+      "</tr></thead>";
+    var ttail = "</tbody></table>";
+    var tbody = "<tbody>";
+
+    for (var tdx in dueTrades){
+      tbody+= "<tr>";
+      var trd=dueTrades[tdx];
+      var rsp = trd.orders.length;
+      //tbody+="<td rowspan='"+rsp+"'>"+trd.buyer_nick+'</td>';
+      //tbody+="<td rowspan='"+rsp+"'>"+trd.payment+'</td>';
+      tbody+="<td>"+trd.tid+'</td>';
+      tbody+="<td>"+trd.buyer_nick+"</td>";
+      var ptn = PAY_TYPE_NICK[trd.pay_type] || '未知';
+      tbody += '<td>'+ptn+'</td>';
+      tbody+="<td>"+trd.payment+'</td>';
+      tbody+="<td>";
+      for (var odx in trd.orders){
+        var order = trd.orders[odx];
+        tbody+=order.state_str+'&nbsp'+order.title+'&nbsp'+order.sku_properties_name+'<br>';
+      }
+      tbody+="</td>";
+
+      var payment_sn= trd.outer_tid || '';
+      if (payment_sn!== '') payment_sn='PSN'+payment_sn+'<br>';
+      var bm = trd.buyer_message;
+      if (bm !== '') bm = '丰蜜留言：'+bm+'<br>';
+      var tm = trd.trade_memo;
+      if (tm !== '') tm = '客服备注：'+tm+'<br>';
+      tbody += '<td>'+payment_sn+bm+tm+'</td>';
+
+      tbody+= "</tr>";
+    }
+
+    return phead+thead+tbody+ttail;
+  },
   reportHtml: function(){
     var thead = "<table class='ui celled structured table'>"+
     "<thead><tr>"+
@@ -213,16 +264,6 @@ Template.dashboard.helpers({
         var payment_style = this_trade.outer_tid!=='' && this_trade.pay_time!=='' ? '<span style="text-decoration: line-through">' : '<span>';
         //if ( todx.indexOf(idx) > -1 ) tbody += "<td rowspan='"+ttrsp+"'>"+payment_style+this_trade.payment+"</span></td>";
         tbody += todx.indexOf(idx)>-1 ? '<td>'+payment_style+this_trade.payment+'</span></td>' : '<td>..</td>';
-        var PayTypeNick={};
-        PayTypeNick.WEIXIN='微支付';
-        PayTypeNick.PEERPAY='三方付';
-        PayTypeNick.ALIPAY='支付宝';
-        PayTypeNick.BANKCARDPAY='银行卡';
-        PayTypeNick.CODPAY='货到付';
-        PayTypeNick.BAIDUPAY='百付宝';
-        PayTypeNick.PRESENTTAKE='领赠品';
-        PayTypeNick.COUPONPAY='抵扣';
-        PayTypeNick.BULKPURCHASE='分销';
         var stn = SHIP_TYPE_NICK[this_trade.shipping_type] || '未知';
         //if ( todx.indexOf(idx) > -1 ) tbody+="<td rowspan='"+ttrsp+"'>"+stn+"</td>";
         tbody += todx.indexOf(idx)>-1 ? '<td>'+stn+'</td>' : '<td>..</td>';
