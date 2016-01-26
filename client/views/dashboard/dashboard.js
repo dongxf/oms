@@ -182,7 +182,60 @@ Template.dashboard.helpers({
       }
     }
 
-    return phead+thead+tbody+ttail;
+    var html_content = phead+thead+tbody+ttail;
+
+    var wx_params = _.extend(UI._globalHelpers.trades_filters(),{pay_type: {$in: ['WEIXIN','PEERPAY','BANKCARDPAY']}});
+    var wxTrades = Trades.find(wx_params,{sort: {update_time: 1}}).fetch();
+    var wx_amount = 0.0;
+    Trades.find(wx_params).map(function(doc){ wx_amount+=parseFloat(doc.payment);});
+    phead = "<h2>收入分类明细表-微信支付 总额："+wx_amount+"("+wxTrades.length+")</h2>";
+    thead = "<table class='ui celled structured table'>"+
+      "<thead><tr>"+
+        "<th>订单号</th><th>名称</th><th>电话</th><th>支付</th><th>应付</th><th>商品</th><th>已发</th><th>数量</th><th>小计</th><th>备注</th>"+
+      "</tr></thead>";
+    ttail = "</tbody></table>";
+    tbody = "<tbody>";
+
+    for (var wxtdx in wxTrades){
+      var wxtrd=wxTrades[wxtdx];
+      var wxrsp = wxtrd.orders.length;
+      var wxcname;
+      if (wxtrd.shipping_type == 'fetch') wxcname = wxtrd.fetch_detail.fetcher_name;
+      if (wxtrd.shipping_type == 'express') wxcname = wxtrd.receiver_name;
+      if (wxcname !== wxtrd.buyer_nick ) wxcname += '('+wxtrd.buyer_nick+')';
+      if (wxcname === '') wxcname= '('+wxtrd.buyer_nick+')';
+      var wxcmobile = wxtrd.shipping_type == 'fetch' ? wxtrd.fetch_detail.fetcher_mobile :  wxtrd.receiver_mobile;
+      for (var wxodx in wxtrd.orders) {
+        tbody+= "<tr>";
+        if (wxodx==0){
+          tbody+="<td rowspan='"+wxrsp+"'>"+wxtrd.tid+'</td>';
+          tbody+="<td rowspan='"+wxrsp+"'>"+wxcname+"</td>";
+          tbody+="<td rowspan='"+wxrsp+"'>"+wxcmobile+"</td>";
+          var wxptn = PAY_TYPE_NICK[wxtrd.pay_type] || '未知';
+          tbody+="<td rowspan='"+wxrsp+"'>"+wxptn+'</td>';
+          tbody+="<td rowspan='"+wxrsp+"'>"+wxtrd.payment+'</td>';
+        }
+        var wxorder = wxtrd.orders[wxodx];
+        tbody+="<td>"+wxorder.title+'&nbsp'+wxorder.sku_properties_name+"</td>";
+        var wxshipped = wxorder.state_str=='已发货' ? 'Y' : '';
+        tbody+="<td>"+ wxshipped +"</td>";
+        tbody+="<td>"+wxorder.num+"</td>";
+        tbody+="<td>"+wxorder.total_fee+'</td>';
+        if (wxodx==0){
+          var wxpayment_sn= wxtrd.outer_tid || '';
+          if (wxpayment_sn!== '') wxpayment_sn='PSN'+wxpayment_sn+'<br>';
+          var wxbm = wxtrd.buyer_message;
+          if (wxbm !== '') wxbm = '丰蜜留言：'+wxbm+'<br>';
+          var wxtm = wxtrd.trade_memo;
+          if (wxtm !== '') wxtm = '客服备注：'+wxtm+'<br>';
+          tbody += "<td rowspan='"+wxrsp+"'>"+wxpayment_sn+wxbm+wxtm+'</td>';
+        }
+        tbody+="</tr>";
+      }
+    }
+
+    html_content += phead+thead+tbody+ttail;
+    return html_content;
   },
   reportHtml: function(){
     var thead = "<table class='ui celled structured table'>"+
