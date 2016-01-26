@@ -48,20 +48,17 @@ Template.slimLayout.helpers({
 
     return links;
   },
-  viewFilter: function(){
-    if (Session.get('viewFilter')) return Session.get('viewFilter');
-    Session.set('viewMode','monitor');
-    return '订单总览';
+  viewName: function(){
+    if (Session.get('viewMode')===undefined) Session.set('viewMode','monitor');
+    return VIEW_NAME[Session.get('viewMode')];
   },
   shippingFilter: function(){
-    if (Session.get('shippingFilter')) return Session.get('shippingFilter');
-    Session.set('shippingType','all');
-    return '全部方式';
+    if (Session.get('shippingFilter')===undefined) Session.set('shippingFilter','all');
+    return SHIPPING_FILTER[Session.get('shippingFilter')];
   },
   statusFilter: function(){
-    if (Session.get('statusFilter')) return Session.get('statusFilter');
-    Session.set('tradeType','not-delivered');
-    return '订单状态';
+    if (Session.get('tradeStatus')===undefined) Session.set('tradeStatus','notdelivered');
+    return STATUS_FILTER[Session.get('tradeStatus')];
   },
 });
 
@@ -84,19 +81,19 @@ Template.slimLayout.events({
   },
   'click .js-all-shipping-types': function(event){
     event.preventDefault();
-    Session.set('shippingType','all');
+    Session.set('shippingFilter','all');
   },
   'click .js-express-only': function(event){
     event.preventDefault();
-    Session.set('shippingType','express');
+    Session.set('shippingFilter','express');
   },
   'click .js-kd-only': function(event){
     event.preventDefault();
-    Session.set('shippingType','kdonly');
+    Session.set('shippingFilter','kdonly');
   },
   'click .js-fetch-only': function(event){
     event.preventDefault();
-    Session.set('shippingType','fetch');
+    Session.set('shippingFilter','fetch');
   },
   'click .setting': function(event){
     event.preventDefault();
@@ -112,34 +109,34 @@ Template.slimLayout.events({
   },
   'click .js-not-delivered': function(event){
     event.preventDefault();
-    Session.set('tradeType','not-delivered');
+    Session.set('tradeStatus','notdelivered');
   },
   'click .js-shipped': function(event){
     event.preventDefault();
-    Session.set('tradeType','shipped');
+    Session.set('tradeStatus','shipped');
   },
   'click .js-finished': function(event){
     event.preventDefault();
-    Session.set('tradeType','finished');
+    Session.set('tradeStatus','finished');
   },
   'click .js-validated-orders': function(event){
     event.preventDefault();
-    Session.set('tradeType','validated');
+    Session.set('tradeStatus','validated');
   },
   'click .js-not-checked-out': function(event){
     event.preventDefault();
-    Session.set('tradeType','not-checked-out');
+    Session.set('tradeStatus','notcheckedout');
   },
   'click .js-closed': function(event){
     event.preventDefault();
-    Session.set('tradeType','closed');
+    Session.set('tradeStatus','closed');
   },
   'click .js-buyer-closed': function(event){
     event.preventDefault();
-    Session.set('tradeType','buyer-closed');
+    Session.set('tradeStatus','buyerclosed');
   },
   'click .js-all-trades': function(event){
     event.preventDefault();
-    Session.set('tradeType','all-trades');
+    Session.set('tradeStatus','alltrades');
   }
 });

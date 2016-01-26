@@ -1,87 +1,55 @@
 Template.registerHelper('trades_filters', function(){
   var sparams={};
-  var stype = Session.get('shippingType');
+  var stype = Session.get('shippingFilter');
   if (stype){
       switch (stype) {
         case 'express':
           sparams={shipping_type: 'express', liner: {$ne: 'KD'}};
-          Session.set('shippingFilter','配送上门');
           break;
         case 'fetch':
           sparams={shipping_type: 'fetch'};
-          Session.set('shippingFilter','到店自提');
           break;
         case 'kdonly':
           sparams={liner: 'KD'};
-          Session.set('shippingFilter','只看快递');
           break;
         default:
           sparams={};
-          Session.set('shippingFilter','全部方式');
+          Session.set('shippingFilter','all');
       }
   }
   var vparams={};
   var vtype = Session.get('viewMode');
-  if (vtype){
-    switch(vtype){
-      case 'monitor':
-        vparams={};
-        Session.set('viewFilter','订单总览');
-        break;
-      case 'printer':
-        vparams={};
-        Session.set('viewFilter','打印专用');
-        break;
-        case 'dispatch':
-          vparams={};
-          Session.set('viewFilter','配送分捡');
-          break;
-        case 'printer':
-          vparams={};
-          Session.set('viewFilter','结算记帐');
-          break;
-      }
-  }
-  var ttypes = Session.get('tradeType');
+  var ttypes = Session.get('tradeStatus');
   var tparams={};
   if (ttypes){
     switch(ttypes) {
-      case 'not-delivered':
+      case 'notdelivered':
         tparams={status: {$in: ['WAIT_SELLER_SEND_GOODS']}};
-        Session.set('statusFilter','等待发货');
         break;
       case 'shipped':
         tparams={status: {$in: ['WAIT_BUYER_CONFIRM_GOODS']}};
-        Session.set('statusFilter','等待收货');
         break;
       case 'finished':
         tparams={status: {$in: ['TRADE_BUYER_SIGNED']}};
-        Session.set('statusFilter','已经完成');
         break;
-      case 'not-checked-out':
+      case 'notcheckedout':
         tparams={status: {$in: ['TRADE_NO_CREATE_PAY','WAIT_BUYER_PAY']}};
-        Session.set('statusFilter','尚未提交');
         break;
       case 'closed':
         tparams={status: {$in: ['TRADE_CLOSED']}};
-        Session.set('statusFilter','已经退款');
         break;
-      case 'buyer-closed':
+      case 'buyerclosed':
         tparams={status: {$in: ['TRADE_CLOSED_BY_USER']}};
-        Session.set('statusFilter','已被取消');
         break;
       case 'validated':
         tparams={status: {$in: ['WAIT_SELLER_SEND_GOODS','WAIT_BUYER_CONFIRM_GOODS','TRADE_BUYER_SIGNED']}};
-        Session.set('statusFilter','所有有效');
         break;
-      case 'all-trades':
+      case 'alltrades':
         tparams={};
-        Session.set('statusFilter','全部订单');
         break;
       default:
-        tparams={status: {$in: ['WAIT_BUYER_CONFIRM_GOODS']}};
-        Session.set('statusFilter','等待收货');
-        Session.set('tradeType','not-delivered');
+        tparams={status: {$in: ['WAIT_SELLER_SEND_GOODS']}};
+        Session.set('tradeStatus','notdelivered');
         break;
     }
   }
@@ -123,8 +91,7 @@ Template.dashboard.helpers({
     }
     return tradesPair;
   },
-  cashierHtml: function( ) {
-
+  cashierHtml: function() {
     var params = UI._globalHelpers.trades_filters();
     Session.set('tradesCount',Trades.find(params).fetch().length);
     var trades_amount = 0.0;
@@ -146,6 +113,7 @@ Template.dashboard.helpers({
     for (var tdx in dueTrades){
       var trd=dueTrades[tdx];
       var this_trade = trd;
+      if (trd.orders===undefined) {break;} // if size of dueTrades==88, seems tdx could be 88, I don't know why
       var rsp = trd.orders.length;
       var cname;
       if (this_trade.shipping_type == 'fetch') cname = this_trade.fetch_detail.fetcher_name;
@@ -189,7 +157,7 @@ Template.dashboard.helpers({
     var wx_amount = 0.0;
     Trades.find(wx_params).map(function(doc){ wx_amount+=parseFloat(doc.payment);});
     //phead = "<h2>收入分类明细表-微信支付 总额："+wx_amount+"("+wxTrades.length+")</h2>";
-    phead = "<h2>收入分类明细表-微信支付 总额："+wx_amount.toFixed(2)+"("+wxTrades.length+")"+"</h2>";
+    phead = "<h2>收入分类明细表-其他支付 总额："+wx_amount.toFixed(2)+"("+wxTrades.length+")"+"</h2>";
     thead = "<table class='ui celled structured table'>"+
       "<thead><tr>"+
         "<th>订单号</th><th>名称</th><th>电话</th><th>支付</th><th>应付</th><th>商品</th><th>已发</th><th>数量</th><th>小计</th><th>备注</th>"+
@@ -199,6 +167,7 @@ Template.dashboard.helpers({
 
     for (var wxtdx in wxTrades){
       var wxtrd=wxTrades[wxtdx];
+      if (wxtrd.orders===undefined) {break;}
       var wxrsp = wxtrd.orders.length;
       var wxcname;
       if (wxtrd.shipping_type == 'fetch') wxcname = wxtrd.fetch_detail.fetcher_name;
