@@ -248,15 +248,13 @@ Template.dashboard.helpers({
   trades: function(){
     return Trades.find();
   },
-  printModeActive: function(){
-    return Session.get('print-mode')=='active' ? true : false;
-  },
-  reportModeActive: function(){
-    return Session.get('report-mode')=='active' ? true : false;
-  },
   isMonitorMode: function(){
     switch(Session.get('viewMode')){
-      case 'printer','dispatch','cashier':
+      case 'printer':
+        return false;
+      case 'dispatch':
+        return false;
+      case 'cashier':
         return false;
       default:
         return true;
