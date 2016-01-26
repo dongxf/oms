@@ -255,7 +255,12 @@ Template.dashboard.helpers({
     return Session.get('report-mode')=='active' ? true : false;
   },
   isMonitorMode: function(){
-    return Session.get('viewMode')==='monitor' ? true : false;
+    switch(Session.get('viewMode')){
+      case 'printer','dispatch','cashier':
+        return false;
+      default:
+        return true;
+    }
   },
   isPrinterMode: function(){
     return Session.get('viewMode')==='printer' ? true : false;
