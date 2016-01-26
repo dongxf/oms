@@ -77,6 +77,7 @@ Template.registerHelper('trades_filters', function(){
       case 'all-trades':
         tparams={};
         Session.set('statusFilter','全部订单');
+        break;
       default:
         tparams={status: {$in: ['WAIT_BUYER_CONFIRM_GOODS']}};
         Session.set('statusFilter','等待收货');
@@ -137,38 +138,48 @@ Template.dashboard.helpers({
     var phead = "<h2>收入分类明细表-货到付款 总额："+cod_amount+"("+dueTrades.length+")</h2>";
     var thead = "<table class='ui celled structured table'>"+
       "<thead><tr>"+
-        "<th>订单号</th><th>名称</th><th>支付</th><th>应付</th><th>商品</th><th>备注</th>"+
+        "<th>订单号</th><th>名称</th><th>电话</th><th>支付</th><th>应付</th><th>商品</th><th>已发</th><th>数量</th><th>小计</th><th>备注</th>"+
       "</tr></thead>";
     var ttail = "</tbody></table>";
     var tbody = "<tbody>";
 
     for (var tdx in dueTrades){
-      tbody+= "<tr>";
       var trd=dueTrades[tdx];
+      var this_trade = trd;
       var rsp = trd.orders.length;
-      //tbody+="<td rowspan='"+rsp+"'>"+trd.buyer_nick+'</td>';
-      //tbody+="<td rowspan='"+rsp+"'>"+trd.payment+'</td>';
-      tbody+="<td>"+trd.tid+'</td>';
-      tbody+="<td>"+trd.buyer_nick+"</td>";
-      var ptn = PAY_TYPE_NICK[trd.pay_type] || '未知';
-      tbody += '<td>'+ptn+'</td>';
-      tbody+="<td>"+trd.payment+'</td>';
-      tbody+="<td>";
-      for (var odx in trd.orders){
+      var cname;
+      if (this_trade.shipping_type == 'fetch') cname = this_trade.fetch_detail.fetcher_name;
+      if (this_trade.shipping_type == 'express') cname = this_trade.receiver_name;
+      if (cname !== this_trade.buyer_nick ) cname += '('+this_trade.buyer_nick+')';
+      if (cname === '') cname= '('+this_trade.buyer_nick+')';
+      var cmobile = this_trade.shipping_type == 'fetch' ? this_trade.fetch_detail.fetcher_mobile :  this_trade.receiver_mobile;
+      for (var odx in trd.orders) {
+        tbody+= "<tr>";
+        if (odx==0){
+          tbody+="<td rowspan='"+rsp+"'>"+trd.tid+'</td>';
+          tbody+="<td rowspan='"+rsp+"'>"+cname+"</td>";
+          tbody+="<td rowspan='"+rsp+"'>"+cmobile+"</td>";
+          var ptn = PAY_TYPE_NICK[trd.pay_type] || '未知';
+          tbody+="<td rowspan='"+rsp+"'>"+ptn+'</td>';
+          tbody+="<td rowspan='"+rsp+"'>"+trd.payment+'</td>';
+        }
         var order = trd.orders[odx];
-        tbody+=order.state_str+'&nbsp'+order.title+'&nbsp'+order.sku_properties_name+'<br>';
+        tbody+="<td>"+order.title+'&nbsp'+order.sku_properties_name+"</td>";
+        var shipped = order.state_str=='已发货' ? 'Y' : '';
+        tbody+="<td>"+ shipped +"</td>";
+        tbody+="<td>"+order.num+"</td>";
+        tbody+="<td>"+order.total_fee+'</td>';
+        if (odx==0){
+          var payment_sn= trd.outer_tid || '';
+          if (payment_sn!== '') payment_sn='PSN'+payment_sn+'<br>';
+          var bm = trd.buyer_message;
+          if (bm !== '') bm = '丰蜜留言：'+bm+'<br>';
+          var tm = trd.trade_memo;
+          if (tm !== '') tm = '客服备注：'+tm+'<br>';
+          tbody += "<td rowspan='"+rsp+"'>"+payment_sn+bm+tm+'</td>';
+        }
+        tbody+="</tr>";
       }
-      tbody+="</td>";
-
-      var payment_sn= trd.outer_tid || '';
-      if (payment_sn!== '') payment_sn='PSN'+payment_sn+'<br>';
-      var bm = trd.buyer_message;
-      if (bm !== '') bm = '丰蜜留言：'+bm+'<br>';
-      var tm = trd.trade_memo;
-      if (tm !== '') tm = '客服备注：'+tm+'<br>';
-      tbody += '<td>'+payment_sn+bm+tm+'</td>';
-
-      tbody+= "</tr>";
     }
 
     return phead+thead+tbody+ttail;
