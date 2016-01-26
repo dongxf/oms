@@ -1,6 +1,13 @@
 <template name="dashboard">
     <h1></h1>
-    {{#if printModeActive}}
+    {{#if isMonitorMode}}
+        <div class="ui cards">
+          {{#each filtered_trades}}
+            {{>tradeItem}}
+          {{/each}}
+        </div>
+    {{/if}}
+    {{#if isPrinterMode}}
       {{#each filtered_trades_pair}}
           <div class="ui cards">
             {{#if trade_a}}
@@ -11,15 +18,11 @@
             {{/if}}
           </div>
       {{/each}}
-    {{else}}
-      {{#if reportModeActive}}
+    {{/if}}
+    {{#if isDispatchMode}}
         {{{reportHtml}}}
-      {{else}}
-        <div class="ui cards">
-          {{#each filtered_trades}}
-            {{>tradeItem}}
-          {{/each}}
-        </div>
-      {{/if}}
+    {{/if}}
+    {{#if isCashierMode}}
+      <h2>Cashier</h2>
     {{/if}}
 </template>

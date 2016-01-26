@@ -20,6 +20,28 @@ Template.registerHelper('trades_filters', function(){
           Session.set('shippingFilter','全部类型');
       }
   }
+  var vparams={};
+  var vtype = Session.get('viewMode');
+  if (vtype){
+    switch(vtype){
+      case 'monitor':
+        vparams={};
+        Session.set('viewFilter','订单总览');
+        break;
+      case 'printer':
+        vparams={};
+        Session.set('viewFilter','打印专用');
+        break;
+        case 'dispatch':
+          vparams={};
+          Session.set('viewFilter','配送分捡');
+          break;
+        case 'printer':
+          vparams={};
+          Session.set('viewFilter','结算记帐');
+          break;
+      }
+  }
   var ttypes = Session.get('tradeTypes');
   var tparams={};
   if (ttypes){
@@ -231,6 +253,18 @@ Template.dashboard.helpers({
   },
   reportModeActive: function(){
     return Session.get('report-mode')=='active' ? true : false;
+  },
+  isMonitorMode: function(){
+    return Session.get('viewMode')==='monitor' ? true : false;
+  },
+  isPrinterMode: function(){
+    return Session.get('viewMode')==='printer' ? true : false;
+  },
+  isDispatchMode: function(){
+    return Session.get('viewMode')==='dispatch' ? true : false;
+  },
+  isCashierMode: function(){
+    return Session.get('viewMode')==='cashier' ? true : false;
   }
 });
 

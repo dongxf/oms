@@ -48,6 +48,10 @@ Template.slimLayout.helpers({
 
     return links;
   },
+  viewFilter: function(){
+    if (Session.get('viewFilter')) return Session.get('viewFilter');
+    return '订单总览';
+  },
   shippingFilter: function(){
     if (Session.get('shippingFilter')) return Session.get('shippingFilter');
     return '配送方式';
@@ -56,36 +60,28 @@ Template.slimLayout.helpers({
     if (Session.get('statusFilter')) return Session.get('statusFilter');
     return '订单状态';
   },
-  printModeColor: function(){
-    return Session.get('print-mode')=='active' ? 'green' : '';
-  },
-  reportModeColor: function(){
-    return Session.get('report-mode')=='active' ? 'green' : '';
-  }
 });
 
 Template.slimLayout.events({
+  'click .js-monitor-view': function(event){
+    event.preventDefault();
+    Session.set('viewMode','monitor');
+  },
+  'click .js-printer-view': function(event){
+    event.preventDefault();
+    Session.set('viewMode','printer');
+  },
+  'click .js-dispatch-view': function(event){
+    event.preventDefault();
+    Session.set('viewMode','dispatch');
+  },
+  'click .js-cashier-view': function(event){
+    event.preventDefault();
+    Session.set('viewMode','cashier');
+  },
   'click .js-all-shipping-types': function(event){
     event.preventDefault();
     Session.set('shippingType','all');
-  },
-  'click .js-print-mode': function(event){
-    event.preventDefault();
-    if (Session.get('print-mode') === ''){
-      Session.set('print-mode','active');
-      Session.set('report-mode','');
-    }else {
-      Session.set('print-mode','');
-    }
-  },
-  'click .js-report-mode': function(event){
-    event.preventDefault();
-    if (Session.get('report-mode') === ''){
-      Session.set('report-mode','active');
-      Session.set('print-mode','');
-    }else{
-      Session.set('report-mode','');
-    }
   },
   'click .js-express-only': function(event){
     event.preventDefault();
