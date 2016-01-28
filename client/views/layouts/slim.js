@@ -6,6 +6,12 @@ Template.slimLayout.rendered = function(){
   $(".dropdown").dropdown();
 };
 
+Template.slimLayout.onRendered(function() {
+  this.picker = new Pikaday({
+    field: document.getElementById('datepicker'),
+  });
+});
+
 Template.slimLayout.helpers({
   tradesCount: function(){
     if (Session.get('tradesCount') || Session.get('tradesCount')===0  ) return Session.get('tradesCount');
