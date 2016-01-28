@@ -122,13 +122,14 @@ Template.dashboard.helpers({
       if (cname === '') cname= '('+this_trade.buyer_nick+')';
       var cmobile = this_trade.shipping_type == 'fetch' ? this_trade.fetch_detail.fetcher_mobile :  this_trade.receiver_mobile;
       for (var odx in trd.orders) {
+        var order = trd.orders[odx];
+        if (order===undefined) {break;}
         tbody+= "<tr>";
         //if (odx==0){
           tbody+="<td>"+trd.tid+'</td>';
           tbody+="<td>"+cname+"</td>";
           tbody+="<td>"+cmobile+"</td>";
         //}
-        var order = trd.orders[odx];
         tbody+="<td>"+order.title+'<td>';
         var shipped = order.state_str=='已发货' ? 'Y' : 'n';
         tbody+="<td>"+ shipped +"</td>";
@@ -177,13 +178,14 @@ Template.dashboard.helpers({
       if (wxcname === '') wxcname= '('+wxtrd.buyer_nick+')';
       var wxcmobile = wxtrd.shipping_type == 'fetch' ? wxtrd.fetch_detail.fetcher_mobile :  wxtrd.receiver_mobile;
       for (var wxodx in wxtrd.orders) {
+        var wxorder = wxtrd.orders[wxodx];
+        if (wxorder===undefined) {break;}
         tbody+= "<tr>";
         //if (wxodx==0){
           tbody+="<td>"+wxtrd.tid+'</td>';
           tbody+="<td>"+wxcname+"</td>";
           tbody+="<td>"+wxcmobile+"</td>";
         //}
-        var wxorder = wxtrd.orders[wxodx];
         tbody+="<td>"+wxorder.title+'<td>';
         var wxshipped = wxorder.state_str=='已发货' ? 'Y' : 'n';
         tbody+="<td>"+ wxshipped +"</td>";
