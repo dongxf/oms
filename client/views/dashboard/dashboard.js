@@ -214,7 +214,7 @@ Template.dashboard.helpers({
   reportHtml: function(){
     var thead = "<table class='ui celled structured table'>"+
     "<thead><tr>"+
-      "<th>NO</th><th>收货人</th><th>地址</th><th>手机</th><th>线路</th><th>日期</th><th>发货</th><th>商品</th><th>规格</th><th>单位</th><th>数量</th>"+
+      "<th>NO</th><th>收货人</th><th>地址</th><th>手机</th><th>线路</th><th>日期</th><th>发货</th><th>商品</th><th>单位</th><th>数量</th>"+
       "<th>价格</th><th>支付</th><th>类型</th><th>方式</th><th>备注</th><th>订单号</th>"+
     "</tr></thead><tbody>";
     var ttail = "</tbody></table>";
