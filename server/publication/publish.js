@@ -10,7 +10,9 @@ Meteor.publish('allTrades',function(){
 Meteor.publish('validTrades',function(){
   if(this.userId){
     var start_time = '2015-05-05 00:00:00';
-    var last_sync_rec = Syncs.findOne({appid: '97970104f0a3fb11d3'});
+    var hub = Meteor.settings.public.hub;
+    var appid = Meteor.settings.yzAppId[hub];
+    var last_sync_rec = Syncs.findOne({appid: appid});
     if (last_sync_rec){
       last_sync_time = last_sync_rec.sync_time;
       last_moment = new moment(last_sync_time, 'YYYY-MM-DD HH:mm:ss');
