@@ -15,25 +15,21 @@
       </div>
       <div><!-- class="description"-->
         <div>{{shipping_address}}</div>
-        {{#if should_hide_amount}}
-          {{#each orders}}
-            {{>order_zero_nonfresh}}
-          {{/each}}
-        {{else}}
-          {{#each orders}}
-            {{>order_nonfresh}}
-          {{/each}}
-        {{/if}}
-        <div><i class="leaf icon"></i><i class="leaf icon"></i><i class="leaf icon"></i><i class="leaf icon"></i><i class="leaf icon"></i><i class="leaf icon"></i></div>
-        {{#if should_hide_amount}}
-          {{#each orders}}
-            {{>order_zero_fresh}}
-          {{/each}}
-        {{else}}
-          {{#each orders}}
-            {{>order_fresh}}
-          {{/each}}
-        {{/if}}
+        {{#each orders}}
+          {{>orderOther}}
+        {{/each}}
+        {{#each orders}}
+          {{>orderGeng}}
+        {{/each}}
+        {{#each orders}}
+          {{>orderYe}}
+        {{/each}}
+        {{#each orders}}
+          {{>orderLeng}}
+        {{/each}}
+        {{#each orders}}
+          {{>orderMian}}
+        {{/each}}
         <hr>
         {{#if discountApplied}}
           <div>

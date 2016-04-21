@@ -38,32 +38,37 @@ Meteor.methods({
               Customers.insert(cust); //There's a bug the record will be insert twice; The problem currently is fixed by ensureIndex();
             }else{
               //Trades.find({'fans_info.fans_id': lm.user_id, 'receiver_address': {$ne: ''}},{sort: {update_time: -1}},{sort: {update_time: -1}}).fetch()[0];
+              var cmobile, caddress, ccity, cstate;
               if (!cust.mobile){// === undefined || cust.mobile === ''){
                 var t1=Trades.find({'fans_info.fans_id': uid, 'receiver_mobile': {$nin: ['',null]}},{sort: {update_time: -1}},{sort: {update_time: -1}}).fetch()[0];
                 var t2=Trades.find({'weixin_user_id': uid, 'receiver_mobile': {$nin: ['',null]}},{sort: {update_time: -1}},{sort: {update_time: -1}}).fetch()[0];
-                if ( t1 ){ cust.mobile = t1.mobile;}
-                if (!cust.mobile && t2){ cust.mobile = t2.receiver_mobile; }
+                if ( t1 ){ cmobile = t1.mobile;}
+                if (!cmobile && t2){ cmobile = t2.receiver_mobile; }
               }
               if (!cust.address){
                 var t3=Trades.find({'fans_info.fans_id': uid, 'receiver_address': {$nin: ['',null]}},{sort: {update_time: -1}},{sort: {update_time: -1}}).fetch()[0];
                 var t4=Trades.find({'weixin_user_id': uid, 'receiver_address': {$nin: ['',null]}},{sort: {update_time: -1}},{sort: {update_time: -1}}).fetch()[0];
-                if ( t3 ){ cust.address = t3.receiver_address;}
-                if (!cust.address && t4){ cust.address = t4.receiver_address; }
+                if ( t3 ){ caddress = t3.receiver_address;}
+                if (!caddress && t4){ caddress = t4.receiver_address; }
               }
               if (!cust.city){
                 var t5=Trades.find({'fans_info.fans_id': uid, 'receiver_city': {$nin: ['',null]}},{sort: {update_time: -1}},{sort: {update_time: -1}}).fetch()[0];
                 var t6=Trades.find({'weixin_user_id': uid, 'receiver_city': {$nin: ['',null]}},{sort: {update_time: -1}},{sort: {update_time: -1}}).fetch()[0];
-                if ( t5 ){ cust.city = t5.receiver_city;}
-                if (!cust.city && t6){ cust.city = t6.receiver_city; }
+                if ( t5 ){ ccity = t5.receiver_city;}
+                if (!ccity && t6){ ccity = t6.receiver_city; }
               }
               if (!cust.state){
                 var t7=Trades.find({'fans_info.fans_id': uid, 'receiver_state': {$nin: ['',null]}},{sort: {update_time: -1}},{sort: {update_time: -1}}).fetch()[0];
                 var t8=Trades.find({'weixin_user_id': uid, 'receiver_state': {$nin: ['',null]}},{sort: {update_time: -1}},{sort: {update_time: -1}}).fetch()[0];
-                if ( t7 ){ cust.state = t7.receiver_state;}
-                if (!cust.state && t8){ cust.state = t8.receiver_state; }
+                if ( t7 ){ cstate = t7.receiver_state;}
+                if (!cstate && t8){ cstate = t8.receiver_state; }
               }
-              if (cust.mobile || cust.address || cust.city || cust.state){
+              if (cmobile || caddress || ccity || cstate){
                 console.log("update existed customer");
+                cust.mobile=cmobile;
+                cust.address=caddress;
+                cust.city=ccity;
+                cust.state=cstate;
                 Customers.update(existed._id, {$set: cust});
               }
             }
@@ -111,7 +116,7 @@ var yzCustomers_full = function(){
 
 var cron = new Meteor.Cron({
   events: {
-    "* * * * *": yzCustomers_update, // */15 * * * * every 15 minutes
+    "*/15 * * * *": yzCustomers_update, // */15 * * * * every 15 minutes
     "0 * * * *": yzCustomers_full //every hour do a full sync
   }
 });
