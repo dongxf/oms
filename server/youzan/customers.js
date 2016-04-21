@@ -116,7 +116,7 @@ var yzCustomers_full = function(){
 
 var cron = new Meteor.Cron({
   events: {
-    "*/15 * * * *": yzCustomers_update, // */15 * * * * every 15 minutes
+    "* * * * *": yzCustomers_update, // */15 * * * * every 15 minutes
     "0 * * * *": yzCustomers_full //every hour do a full sync
   }
 });
