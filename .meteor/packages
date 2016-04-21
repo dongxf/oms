@@ -29,6 +29,7 @@ simple:reactive-method
 meteorhacks:async
 mrt:cron
 momentjs:moment
+standard-minifiers
 meteor-base
 mobile-experience
 mongo
@@ -47,6 +48,3 @@ npm-container
 aslagle:reactive-table
 brentjanderson:buzz
 wzoom:pikaday
-axw:json2csv
-standard-minifier-css
-standard-minifier-js
