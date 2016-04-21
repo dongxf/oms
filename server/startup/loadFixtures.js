@@ -9,4 +9,5 @@ function loadFixture(fixtures, collection) {
 
 Meteor.startup(function () {
   //loadFixture(Fixtures['dummyFixture'], DummyCollection);
+  //Meteor.Customers.ensureIndex( { weixin_openid: 1 }, {unique:true} );
 });

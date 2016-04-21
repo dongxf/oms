@@ -32,6 +32,14 @@ Meteor.publish('validTrades',function(){
   }
 });
 
+Meteor.publish('allFans',function(){
+  if(this.userId){
+    return Customers.find({weixin_openid: {$ne: ''}, traded_money: {$ne: '0.00'}},{sort: {points: -1}});
+  }else{
+    this.ready();
+  }
+});
+
 /*
 TRADE_NO_CREATE_PAY（没有创建支付交易）
 WAIT_BUYER_PAY（等待买家付款）

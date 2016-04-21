@@ -85,6 +85,10 @@ Template.slimLayout.events({
     event.preventDefault();
     Session.set('viewMode','cashier');
   },
+  'click .js-fans-view': function(event){
+    event.preventDefault();
+    Session.set('viewMode','fans');
+  },
   'click .js-all-shipping-types': function(event){
     event.preventDefault();
     Session.set('shippingFilter','all');

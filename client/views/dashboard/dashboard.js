@@ -211,6 +211,23 @@ Template.dashboard.helpers({
     html_content += phead+thead+tbody+ttail;
     return html_content;
   },
+  fansHtml: function(){
+    var thead = "<table class='ui celled structured table'>"+
+    "<thead><tr>"+
+      "<th>user_id</th><th>avatar</th><th>nick</th><th>openid</th><th>traded_money</th><th>points</th><th>mobile</th><th>state</th><th>city</th><th>address</th>"+
+    "</tr></thead><tbody>";
+    var ttail="</tbody></table>";
+    var allFans = Customers.find().fetch(); // filters has been set in publish.js
+    var tbody="";
+    allFans.forEach(function(fan){
+      tbody+="<tr><td>"+fan.user_id+"</td><td>"+"fan.avatar"+"</td><td>"+fan.nick+
+      "</td><td>"+fan.weixin_openid+"</td><td>"+fan.traded_money+"</td><td>"+fan.points+"</td>"+
+      "<td>"+fan.mobile+"</td>"+"<td>"+fan.state+"</td><td>"+fan.city+"</td><td>"+fan.address+"</td>"+
+      "</tr>";
+    });
+    var fansHtml=thead+tbody+ttail;
+    return fansHtml;
+  },
   reportHtml: function(){
     var thead = "<table class='ui celled structured table'>"+
     "<thead><tr>"+
@@ -344,18 +361,23 @@ Template.dashboard.helpers({
         return false;
       case 'cashier':
         return false;
+      case 'fans':
+        return false;
       default:
         return true;
     }
   },
   isPrinterMode: function(){
-    return Session.get('viewMode')==='printer' ? true : false;
+    return Session.get('viewMode')==='printer';
   },
   isDispatchMode: function(){
-    return Session.get('viewMode')==='dispatch' ? true : false;
+    return Session.get('viewMode')==='dispatch';
   },
   isCashierMode: function(){
-    return Session.get('viewMode')==='cashier' ? true : false;
+    return Session.get('viewMode')==='cashier';
+  },
+  isFansMode: function(){
+    return Session.get('viewMode')==='fans';
   }
 });
 

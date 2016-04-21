@@ -14,7 +14,7 @@ Meteor.methods({
       var yzParams = _.extend({ 'page_no': page_no, 'page_size': 100, 'use_has_next': use_has_next},params);
       youzanAPI.getSoldTradeList(yzParams,Meteor.bindEnvironment(function(err,res,result){
         if(err){
-            console.log('error:'+err.reason);
+            console.log('get sold error:'+err.reason);
         }else{
           var solds = result.response.trades;
           solds.forEach(function(sold){
