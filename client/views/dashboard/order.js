@@ -1,13 +1,13 @@
 Template.order.helpers({
   truncated_title: function(){
-    return this.title.substring(0,12);
+    var ostat = this.title + (this.state_str==='退款中' ? '维权中'  : '');
+    return ostat.substring(0,12);
+    //return this.title.substring(0,12);
     //return this.outer_sku_id+' '+this.title.substring(0,12);
-  },
-  shipping_state: function(){
-    return this.state_str;
   },
   mark_style: function(){
     if (this.state_str=='已发货') return 'text-decoration: line-through';
+    if (this.state_str=='退款中') return 'text-decoration: line-throug';
     return '';
   }
 });
@@ -16,17 +16,16 @@ Template.orderGeng.helpers({
     return this.title[this.title.length-1]=='G';
   },
   truncated_title: function(){
-    return 'g '+this.title.substring(0,14);
+    var ostat = this.title + (this.state_str==='退款中' ? '维权中'  : '');
+    return ostat.substring(0,12);//return 'g '+this.title.substring(0,14);
     //return this.outer_sku_id+' '+this.title.substring(0,12);
-  },
-  shipping_state: function(){
-    return this.state_str;
   },
   noticed_num: function(){
     return this.num=='1' ? '1' : '*'+this.num;
   },
   mark_style: function(){
     if (this.state_str=='已发货') return 'text-decoration: line-through';
+    if (this.state_str=='退款中') return 'text-decoration: line-throug';
     return '';
   }
 });
@@ -36,17 +35,16 @@ Template.orderOther.helpers({
     return mark!=='G'&&mark!=='Y'&&mark!='L'&&mark!='M';
   },
   truncated_title: function(){
-    return 'o '+this.title.substring(0,14);
+    var ostat = this.title + (this.state_str==='退款中' ? '维权中'  : '');
+    return ostat.substring(0,12);//return 'o '+this.title.substring(0,14);
     //return this.outer_sku_id+' '+this.title.substring(0,12);
   },
   noticed_num: function(){
     return this.num=='1' ? '1' : '*'+this.num;
   },
-  shipping_state: function(){
-    return this.state_str;
-  },
   mark_style: function(){
     if (this.state_str=='已发货') return 'text-decoration: line-through';
+    if (this.state_str=='退款中') return 'text-decoration: line-throug';
     return '';
   }
 });
@@ -55,17 +53,16 @@ Template.orderYe.helpers({
     return this.title[this.title.length-1]=='Y';
   },
   truncated_title: function(){
-    return 'y '+this.title.substring(0,14);
+    var ostat = this.title + (this.state_str==='退款中' ? '维权中'  : '');
+    return ostat.substring(0,12);//return 'y '+this.title.substring(0,14);
     //return this.outer_sku_id+' '+this.title.substring(0,12);
   },
   noticed_num: function(){
     return this.num=='1' ? '1' : '*'+this.num;
   },
-  shipping_state: function(){
-    return this.state_str;
-  },
   mark_style: function(){
     if (this.state_str=='已发货') return 'text-decoration: line-through';
+    if (this.state_str=='退款中') return 'text-decoration: line-throug';
     return '';
   }
 });
@@ -74,17 +71,16 @@ Template.orderLeng.helpers({
     return this.title[this.title.length-1]=='L';
   },
   truncated_title: function(){
-    return 'l '+this.title.substring(0,14);
+    var ostat = this.title + (this.state_str==='退款中' ? '维权中'  : '');
+    return ostat.substring(0,12);//return 'l '+this.title.substring(0,14);
     //return this.outer_sku_id+' '+this.title.substring(0,12);
   },
   noticed_num: function(){
     return this.num=='1' ? '1' : '*'+this.num;
   },
-  shipping_state: function(){
-    return this.state_str;
-  },
   mark_style: function(){
     if (this.state_str=='已发货') return 'text-decoration: line-through';
+    if (this.state_str=='退款中') return 'text-decoration: line-throug';
     return '';
   }
 });
@@ -93,17 +89,16 @@ Template.orderMian.helpers({
     return this.title[this.title.length-1]=='M';
   },
   truncated_title: function(){
-    return 'm '+this.title.substring(0,14);
+    var ostat = this.title + (this.state_str==='退款中' ? '维权中'  : '');
+    return ostat.substring(0,12);//return 'm '+this.title.substring(0,14);
     //return this.outer_sku_id+' '+this.title.substring(0,12);
   },
   noticed_num: function(){
     return this.num=='1' ? '1' : '*'+this.num;
   },
-  shipping_state: function(){
-    return this.state_str;
-  },
   mark_style: function(){
     if (this.state_str=='已发货') return 'text-decoration: line-through';
+    if (this.state_str=='退款中') return 'text-decoration: line-throug';
     return '';
   }
 });
