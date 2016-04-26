@@ -214,13 +214,13 @@ Template.dashboard.helpers({
   fansHtml: function(){
     var thead = "<table class='ui celled structured table'>"+
     "<thead><tr>"+
-      "<th>user_id</th><th>avatar</th><th>nick</th><th>openid</th><th>traded_money</th><th>points</th><th>mobile</th><th>state</th><th>city</th><th>address</th>"+
+      "<th>user_id</th><th>x</th><th>avatar</th><th>nick</th><th>openid</th><th>traded_money</th><th>points</th><th>mobile</th><th>state</th><th>city</th><th>address</th>"+
     "</tr></thead><tbody>";
     var ttail="</tbody></table>";
     var allFans = Customers.find().fetch(); // filters has been set in publish.js
     var tbody="";
     allFans.forEach(function(fan){
-      tbody+="<tr><td>"+fan.user_id+"</td><td>"+"fan.avatar"+"</td><td>"+fan.nick+
+      tbody+="<tr><td>"+fan.user_id+"</td><td>"+fan.sex+"</td><td>"+fan.avatar+"</td><td>"+fan.nick+
       "</td><td>"+fan.weixin_openid+"</td><td>"+fan.traded_money+"</td><td>"+fan.points+"</td>"+
       "<td>"+fan.mobile+"</td>"+"<td>"+fan.state+"</td><td>"+fan.city+"</td><td>"+fan.address+"</td>"+
       "</tr>";
