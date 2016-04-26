@@ -16,7 +16,7 @@ Template.orderGeng.helpers({
     return this.title[this.title.length-1]=='G';
   },
   truncated_title: function(){
-    var ostat = this.title + (this.state_str==='退款中' ? '维权中'  : '');
+    var ostat = (this.state_str==='退款中' ? '退'  : '')+'g '+this.title;
     return ostat.substring(0,12);//return 'g '+this.title.substring(0,14);
     //return this.outer_sku_id+' '+this.title.substring(0,12);
   },
@@ -35,7 +35,7 @@ Template.orderOther.helpers({
     return mark!=='G'&&mark!=='Y'&&mark!='L'&&mark!='M';
   },
   truncated_title: function(){
-    var ostat = this.title + (this.state_str==='退款中' ? '维权中'  : '');
+    var ostat = (this.state_str==='退款中' ? '退'  : '')+'o '+this.title;
     return ostat.substring(0,12);//return 'o '+this.title.substring(0,14);
     //return this.outer_sku_id+' '+this.title.substring(0,12);
   },
@@ -53,7 +53,7 @@ Template.orderYe.helpers({
     return this.title[this.title.length-1]=='Y';
   },
   truncated_title: function(){
-    var ostat = this.title + (this.state_str==='退款中' ? '维权中'  : '');
+    var ostat = (this.state_str==='退款中' ? '退'  : '')+'y '+this.title;
     return ostat.substring(0,12);//return 'y '+this.title.substring(0,14);
     //return this.outer_sku_id+' '+this.title.substring(0,12);
   },
@@ -71,7 +71,7 @@ Template.orderLeng.helpers({
     return this.title[this.title.length-1]=='L';
   },
   truncated_title: function(){
-    var ostat = this.title + (this.state_str==='退款中' ? '维权中'  : '');
+    var ostat = (this.state_str==='退款中' ? '退'  : '')+'l '+this.title;
     return ostat.substring(0,12);//return 'l '+this.title.substring(0,14);
     //return this.outer_sku_id+' '+this.title.substring(0,12);
   },
@@ -89,7 +89,7 @@ Template.orderMian.helpers({
     return this.title[this.title.length-1]=='M';
   },
   truncated_title: function(){
-    var ostat = this.title + (this.state_str==='退款中' ? '维权中'  : '');
+    var ostat = (this.state_str==='退款中' ? '退'  : '')+'m '+this.title;
     return ostat.substring(0,12);//return 'm '+this.title.substring(0,14);
     //return this.outer_sku_id+' '+this.title.substring(0,12);
   },
