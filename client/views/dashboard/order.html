@@ -1,17 +1,17 @@
 <template name="order">
   <div>
-  <span style="{{mark_style}}">{{truncated_title}}...</span>
-  <span class="right floated">
-  *{{num}}&nbsp;&nbsp;¥{{total_fee}}
-  </span>
+    <span style="{{mark_style}}">{{truncated_title}}...</span>
+    <span class="right floated">{{payment}}</span>
   </div>
 </template>
 
 <template name="orderGeng">
   {{#if markedGeng}}
     <div>
-      <span style="{{mark_style}}">{{truncated_title}}...</span>
-      <span class="right floated">{{noticed_num}}</span>
+    <span style="{{mark_style}}">{{truncated_title}}...</span>
+    <span class="right floated">{{payment}}</span>
+      <!--span style="{{mark_style}}">{{truncated_title}}...</span>
+      <span class="right floated">{{noticed_num}}</span-->
     </div>
   {{/if}}
 </template>
@@ -19,8 +19,10 @@
 <template name="orderYe">
   {{#if markedYe}}
     <div>
-      <span style="{{mark_style}}">{{truncated_title}}...</span>
-      <span class="right floated">{{noticed_num}}</span>
+    <span style="{{mark_style}}">{{truncated_title}}...</span>
+    <span class="right floated">{{payment}}</span>
+      <!--span style="{{mark_style}}">{{truncated_title}}...</span>
+      <span class="right floated">{{noticed_num}}</span-->
     </div>
   {{/if}}
 </template>
@@ -28,8 +30,10 @@
 <template name="orderOther">
   {{#if markedOther}}
     <div>
-      <span style="{{mark_style}}">{{truncated_title}}...</span>
-      <span class="right floated">{{noticed_num}}</span>
+    <span style="{{mark_style}}">{{truncated_title}}...</span>
+    <span class="right floated">{{payment}}</span>
+      <!--span style="{{mark_style}}">{{truncated_title}}...</span>
+      <span class="right floated">{{noticed_num}}</span-->
     </div>
   {{/if}}
 </template>
@@ -37,8 +41,10 @@
 <template name="orderLeng">
   {{#if markedLeng}}
     <div>
-      <span style="{{mark_style}}">{{truncated_title}}...</span>
-      <span class="right floated">{{noticed_num}}</span>
+    <span style="{{mark_style}}">{{truncated_title}}...</span>
+    <span class="right floated">{{payment}}</span>
+      <!--span style="{{mark_style}}">{{truncated_title}}...</span>
+      <span class="right floated">{{noticed_num}}</span-->
     </div>
   {{/if}}
 </template>
@@ -46,8 +52,10 @@
 <template name="orderMian">
   {{#if markedMian}}
     <div>
-      <span style="{{mark_style}}">{{truncated_title}}...</span>
-      <span class="right floated">{{noticed_num}}</span>
+    <span style="{{mark_style}}">{{truncated_title}}...</span>
+    <span class="right floated">{{payment}}</span>
+      <!--span style="{{mark_style}}">{{truncated_title}}...</span>
+      <span class="right floated">{{noticed_num}}</span-->
     </div>
   {{/if}}
 </template>
