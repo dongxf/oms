@@ -13,15 +13,14 @@
           <script>var s = new Audio('/sounds/hurry_money.wav'); s.play();</script>
         {{/if}}
       </div>
-
       <div><!-- class="description"-->
         <div>{{shipping_address}}</div>
-        {{#if buyerMessageLeft}}
-          <div>****{{buyer_message}}****</div>
-        {{/if}}
-        {{#if tradeMemoExisted}}
-          <div>****{{trade_memo}}****</div>
-        {{/if}}
+          {{#if buyerMessageLeft}}
+            <div>▶▶{{buyer_message}}◀◀</div>
+            {{/if}}
+          {{#if tradeMemoExisted}}
+            <div>【{{trade_memo}}】</div>
+          {{/if}}
         {{#each orders}}
           {{>orderOther}}
         {{/each}}
