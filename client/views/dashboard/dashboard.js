@@ -23,6 +23,9 @@ Template.registerHelper('trades_filters', function(){
   var tparams={};
   if (ttypes){
     switch(ttypes) {
+      case 'waitgroup':
+        tparams={status: {$in: ['WAIT_GROUP']}};
+        break;
       case 'notdelivered':
         tparams={status: {$in: ['WAIT_SELLER_SEND_GOODS']}};
         break;

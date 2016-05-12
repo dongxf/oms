@@ -137,6 +137,10 @@ Template.slimLayout.events({
     event.preventDefault();
     Session.set('tradeStatus','notcheckedout');
   },
+  'click .js-wait-group': function(event){
+    event.preventDefault();
+    Session.set('tradeStatus','waitgroup');
+  },
   'click .js-closed': function(event){
     event.preventDefault();
     Session.set('tradeStatus','closed');

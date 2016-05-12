@@ -80,13 +80,3 @@ Template.tradeItem.events({
     Meteor.call('tradeReminder',this._id);
   }
 });
-/*
-TRADE_NO_CREATE_PAY（没有创建支付交易）
-WAIT_BUYER_PAY（等待买家付款）
-WAIT_SELLER_SEND_GOODS（等待卖家发货，即：买家已付款）
-WAIT_BUYER_CONFIRM_GOODS（等待买家确认收货，即：卖家已发货）
-TRADE_BUYER_SIGNED（买家已签收）
-TRADE_CLOSED（付款以后用户退款成功，交易自动关闭）
-ALL_WAIT_PAY（包含：WAIT_BUYER_PAY、TRADE_NO_CREATE_PAY）
-ALL_CLOSED（所有关闭订单）
-*/
