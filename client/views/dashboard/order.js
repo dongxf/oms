@@ -27,6 +27,10 @@ Template.orderGeng.helpers({
     if (this.state_str=='已发货') return 'text-decoration: line-through';
     if (this.state_str=='退款中') return 'text-decoration: line-throug';
     return '';
+  },
+  price_to_show: function(){
+    if (Template.parentData(1).hide_amount=='hide') return '';
+    return this.payment;
   }
 });
 Template.orderOther.helpers({
@@ -46,6 +50,10 @@ Template.orderOther.helpers({
     if (this.state_str=='已发货') return 'text-decoration: line-through';
     if (this.state_str=='退款中') return 'text-decoration: line-throug';
     return '';
+  },
+  price_to_show: function(){
+    if (Template.parentData(1).hide_amount=='hide') return '';
+    return this.payment;
   }
 });
 Template.orderYe.helpers({
@@ -64,6 +72,10 @@ Template.orderYe.helpers({
     if (this.state_str=='已发货') return 'text-decoration: line-through';
     if (this.state_str=='退款中') return 'text-decoration: line-throug';
     return '';
+  },
+  price_to_show: function(){
+    if (Template.parentData(1).hide_amount=='hide') return '';
+    return this.payment;
   }
 });
 Template.orderLeng.helpers({
@@ -81,7 +93,11 @@ Template.orderLeng.helpers({
   mark_style: function(){
     if (this.state_str=='已发货') return 'text-decoration: line-through';
     if (this.state_str=='退款中') return 'text-decoration: line-throug';
-    return '';
+    return this.payment;
+  },
+  price_to_show: function(){
+    if (Template.parentData(1).hide_amount=='hide') return '';
+    return this.payment;
   }
 });
 Template.orderMian.helpers({
@@ -100,5 +116,9 @@ Template.orderMian.helpers({
     if (this.state_str=='已发货') return 'text-decoration: line-through';
     if (this.state_str=='退款中') return 'text-decoration: line-throug';
     return '';
+  },
+  price_to_show: function(){
+    if (Template.parentData(1).hide_amount=='hide') return '';
+    return this.payment;
   }
 });
