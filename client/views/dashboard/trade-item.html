@@ -13,8 +13,15 @@
           <script>var s = new Audio('/sounds/hurry_money.wav'); s.play();</script>
         {{/if}}
       </div>
+
       <div><!-- class="description"-->
         <div>{{shipping_address}}</div>
+        {{#if buyerMessageLeft}}
+          <div>****{{buyer_message}}****</div>
+        {{/if}}
+        {{#if tradeMemoExisted}}
+          <div>****{{trade_memo}}****</div>
+        {{/if}}
         {{#each orders}}
           {{>orderOther}}
         {{/each}}
@@ -63,12 +70,6 @@
         <div style="font-size: 8px">{{created}}</div>
         <div style="font-size: 8px">{{pay_time}} {{pay_type_nick}}</div>
         <div style="font-size: 8px">{{outer_tid}}</div>
-      {{#if buyerMessageLeft}}
-        <div style="font-size: 10px">买家：{{buyer_message}}</div>
-      {{/if}}
-      {{#if tradeMemoExisted}}
-        <div style="font-size: 10px">卖家：{{trade_memo}}</div>
-      {{/if}}
       </div>
     </div>
     <div class="extra content">
