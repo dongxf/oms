@@ -16,10 +16,10 @@
       <div><!-- class="description"-->
         <div>{{shipping_address}}</div>
           {{#if buyerMessageLeft}}
-            <div>▶▶{{buyer_message}}◀◀</div>
+            <div>▶▶丰蜜：{{buyer_message}}◀◀</div>
           {{/if}}
           {{#if tradeMemoExisted}}
-            <div>【{{trade_memo}}】</div>
+            <div>【客服：{{trade_memo}}】</div>
           {{/if}}
         {{#each orders}}
           {{>orderOther}}
@@ -63,7 +63,7 @@
         <span class="right floated" style="{{pay_style}}">
           {{#if should_hide_amount}}
           {{else}}
-            ¥{{payment}}
+            ¥{{payment}}{{pay_notice}}
           {{/if}}
         </span>
         <div style="font-size: 8px">{{created}}</div>

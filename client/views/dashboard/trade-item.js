@@ -53,10 +53,9 @@ Template.tradeItem.helpers({
     if (this.outer_tid!=='' && this.pay_time!=='') return 'text-decoration: line-through';
     return '';
   },
-  pay_icon: function(){
-    if (this.pay_type=='WEIXIN') return 'wechat icon';
-    if (this.pay_type=='CODPAY') return 'unhide icon';
-    return 'spinner icon';
+  pay_notice: function(){
+    if (this.pay_type=='CODPAY') return ' #待付#';
+    return '';
   },
   status_label: function(){
     return PAY_STATUS_NICK[this.status] || this.status;
