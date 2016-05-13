@@ -16,7 +16,7 @@ Meteor.publish('validTrades',function(){
     if (last_sync_rec){
       last_sync_time = last_sync_rec.sync_time;
       last_moment = new moment(last_sync_time, 'YYYY-MM-DD HH:mm:ss');
-      start_time = last_moment.subtract('20','days').format('YYYY-MM-DD HH:mm:ss');
+      start_time = last_moment.subtract('30','days').format('YYYY-MM-DD HH:mm:ss');
     }
     console.log('publish using start_time '+start_time);
     return Trades.find(
