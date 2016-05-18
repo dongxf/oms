@@ -1,7 +1,7 @@
 Template.order.helpers({
   truncated_title: function(){
-    var ostat = (this.state_str==='退款中' ? '退'  : '')+ (this.num=='1' ? '1 ' : this.num+'*') + (this.sku_properties_name==='' ? '' : this.sku_properties_name.substring(3,10) + '|') + this.title;
-    return ostat.substring(0,16)+'-';
+    var ostat = (this.state_str==='退款中' ? '退'  : '')+ (this.num=='1' ? '1-' : this.num+'*') + (this.sku_properties_name==='' ? '' : this.sku_properties_name.split(':')[1] + '|') + this.title;
+    return ostat.substring(0,17);//+'-';
   },
   mark_style: function(){
     if (this.state_str=='已发货') return 'text-decoration: line-through';
@@ -14,8 +14,8 @@ Template.orderGeng.helpers({
     return this.title[this.title.length-1]=='G';
   },
   truncated_title: function(){
-    var ostat = (this.state_str==='退款中' ? '退'  : '')+ (this.num=='1' ? '1 ' : this.num+'*') + (this.sku_properties_name==='' ? '' : this.sku_properties_name.substring(3,10) + '|') + this.title;
-    return ostat.substring(0,16)+'g';
+    var ostat = (this.state_str==='退款中' ? '退'  : '')+ (this.num=='1' ? '1-' : this.num+'*') + (this.sku_properties_name==='' ? '' : this.sku_properties_name.split(':')[1] + '|') + this.title;
+    return ostat.substring(0,17);//+'g';
   },
   noticed_num: function(){
     return this.num=='1' ? '1' : '*'+this.num;
@@ -36,8 +36,8 @@ Template.orderOther.helpers({
     return mark!=='G'&&mark!=='Y'&&mark!='L'&&mark!='M';
   },
   truncated_title: function(){
-    var ostat = (this.state_str==='退款中' ? '退'  : '')+ (this.num=='1' ? '1 ' : this.num+'*') + (this.sku_properties_name==='' ? '' : this.sku_properties_name.substring(3,10) + '|') + this.title;
-    return ostat.substring(0,16);//+'o';
+    var ostat = (this.state_str==='退款中' ? '退'  : '')+ (this.num=='1' ? '1-' : this.num+'*') + (this.sku_properties_name==='' ? '' : this.sku_properties_name.split(':')[1] + '|') + this.title;
+    return ostat.substring(0,17);//+'o';
   },
   noticed_num: function(){
     return this.num=='1' ? '1' : '*'+this.num;
@@ -57,8 +57,8 @@ Template.orderYe.helpers({
     return this.title[this.title.length-1]=='Y';
   },
   truncated_title: function(){
-    var ostat = (this.state_str==='退款中' ? '退'  : '')+ (this.num=='1' ? '1 ' : this.num+'*') + (this.sku_properties_name==='' ? '' : this.sku_properties_name.substring(3,10) + '|') + this.title;
-    return ostat.substring(0,16)+'y';
+    var ostat = (this.state_str==='退款中' ? '退'  : '')+ (this.num=='1' ? '1-' : this.num+'*') + (this.sku_properties_name==='' ? '' : this.sku_properties_name.split(':')[1] + '|') + this.title;
+    return ostat.substring(0,17);//+'y';
   },
   noticed_num: function(){
     return this.num=='1' ? '1' : '*'+this.num;
@@ -78,8 +78,8 @@ Template.orderLeng.helpers({
     return this.title[this.title.length-1]=='L';
   },
   truncated_title: function(){
-    var ostat = (this.state_str==='退款中' ? '退'  : '')+ (this.num=='1' ? '1 ' : this.num+'*') + (this.sku_properties_name==='' ? '' : this.sku_properties_name.substring(3,10) + '|') + this.title;
-    return ostat.substring(0,16)+'l';
+    var ostat = (this.state_str==='退款中' ? '退'  : '')+ (this.num=='1' ? '1-' : this.num+'*') + (this.sku_properties_name==='' ? '' : this.sku_properties_name.split(':')[1] + '|') + this.title;
+    return ostat.substring(0,17);//+'l';
   },
   noticed_num: function(){
     return this.num=='1' ? '1' : '*'+this.num;
@@ -99,8 +99,8 @@ Template.orderMian.helpers({
     return this.title[this.title.length-1]=='M';
   },
   truncated_title: function(){
-    var ostat = (this.state_str==='退款中' ? '退'  : '')+ (this.num=='1' ? '1 ' : this.num+'*') + (this.sku_properties_name==='' ? '' : this.sku_properties_name.substring(3,10) + '|') + this.title;
-    return ostat.substring(0,16)+'m';
+    var ostat = (this.state_str==='退款中' ? '退'  : '')+ (this.num=='1' ? '1-' : this.num+'*') + (this.sku_properties_name==='' ? '' : this.sku_properties_name.split(':')[1] + '|') + this.title;
+    return ostat.substring(0,17);//+'m';
   },
   noticed_num: function(){
     return this.num=='1' ? '1' : '*'+this.num;
