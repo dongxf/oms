@@ -16,11 +16,12 @@
       <div><!-- class="description"-->
         <div>{{shipping_address}}</div>
           {{#if buyerMessageLeft}}
-            <div>▶▶丰蜜：{{buyer_message}}◀◀</div>
+            <div>▶蜜:{{buyer_message}}</div>
           {{/if}}
           {{#if tradeMemoExisted}}
-            <div>【客服：{{trade_memo}}】</div>
+            <div>●蜂:{{trade_memo}}</div>
           {{/if}}
+        <hr>
         {{#each orders}}
           {{>orderOther}}
         {{/each}}
