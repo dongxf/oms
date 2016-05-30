@@ -112,6 +112,7 @@ Template.slimLayout.events({
   'click .sync': function(event){
     event.preventDefault();
     Meteor.call('syncYouzanTrades');
+    Meteor.call('syncYouzanItems');
   },
   'click .signOut': function(event){
     event.preventDefault();

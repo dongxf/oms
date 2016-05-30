@@ -9,6 +9,7 @@ anti:i18n@0.4.3
 aslagle:reactive-table@0.8.23
 audit-argument-checks@1.0.4
 autoupdate@1.2.4
+axw:json2csv@0.1.0
 babel-compiler@5.8.24_1
 babel-runtime@0.1.4
 base64@1.0.4
