@@ -234,7 +234,7 @@ Template.dashboard.helpers({
   reportHtml: function(){
     var thead = "<table class='ui celled structured table'>"+
     "<thead><tr>"+
-      "<th>NO</th><th>收货人</th><th>地址</th><th>手机</th><th>线路</th><th>日期</th><th>发货</th><th>商品</th><th>单位</th><th>数量</th>"+
+      "<th>NO</th><th>收货人</th><th>城市</th><th>区域</th><th>地址</th><th>手机</th><th>线路</th><th>日期</th><th>发货</th><th>商品</th><th>单位</th><th>数量</th>"+
       "<th>价格</th><th>支付</th><th>类型</th><th>方式</th><th>备注</th><th>订单号</th>"+
     "</tr></thead><tbody>";
     var ttail = "</tbody></table>";
@@ -297,11 +297,13 @@ Template.dashboard.helpers({
         if (cname === '') cname= '('+this_trade.buyer_nick+')';
         //if ( todx.indexOf(idx) > -1 ) tbody+="<td rowspan='"+ttrsp+"'>"+cname+"</td>";
         tbody += todx.indexOf(idx)>-1 ? '<td>'+cname+'</td>' : '<td>..</td>';
-
+        //return this.shipping_type=='fetch' ? this.fetch_detail.shop_name : this.receiver_city+this.receiver_district+this.receiver_address;
+        var ccity = this_trade.shipping_type=='fetch' ? "" : this_trade.receiver_city;
+        var cdistrict = this_trade.shipping_type == 'fetch' ? '' : this_trade.receiver_district;
         var caddr =  this_trade.shipping_type=='fetch' ? this_trade.fetch_detail.shop_name : this_trade.receiver_address;
 
         //if ( todx.indexOf(idx) > -1 ) tbody+="<td rowspan='"+ttrsp+"'>"+caddr+"</td>";
-        tbody += todx.indexOf(idx)>-1 ? '<td>'+caddr+'</td>' : '<td>..</td>';
+        tbody += todx.indexOf(idx)>-1 ? '<td>'+ccity+'</td>'+'<td>'+cdistrict+'</td>'+'<td>'+caddr+'</td>' : '<td>..</td><td>..</td><td>..</td>';
         var cmobile = this_trade.shipping_type == 'fetch' ? this_trade.fetch_detail.fetcher_mobile :  this_trade.receiver_mobile;
         //if ( todx.indexOf(idx) > -1 ) tbody+="<td rowspan='"+ttrsp+"'>"+this_trade.receiver_mobile+"</td>";
         tbody += todx.indexOf(idx)>-1 ? '<td>'+cmobile+'</td>' : '<td>..</td>';
