@@ -20,10 +20,6 @@ Meteor.methods({
     getYouzanItems('kdt.items.inventory.get',1, "inventory_1.csv");
     getYouzanItems('kdt.items.inventory.get',2, "inventory_2.csv");
     getYouzanItems('kdt.items.onsale.get',1, "onsale_1.csv");
-    getYouzanItems('kdt.items.onsale.get',2, "onsale_2.csv");
-    getYouzanItems('kdt.items.onsale.get',3, "onsale_3.csv");
-    getYouzanItems('kdt.items.onsale.get',4, "onsale_4.csv");
-    getYouzanItems('kdt.items.onsale.get',5, "onsale_5.csv");
   }
 });
 
