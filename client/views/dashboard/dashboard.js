@@ -234,7 +234,7 @@ Template.dashboard.helpers({
   reportHtml: function(){
     var thead = "<table class='ui celled structured table'>"+
     "<thead><tr>"+
-      "<th>NO</th><th>收货人</th><th>城市</th><th>区域</th><th>地址</th><th>手机</th><th>线路</th><th>日期</th><th>发货</th><th>商品</th><th>单位</th><th>数量</th>"+
+      "<th>NO</th><th>收货人</th><th>地址</th><th>手机</th><th>线路</th><th>日期</th><th>发货</th><th>sku</th><th>商品</th><th>单位</th><th>数量</th>"+
       "<th>价格</th><th>支付</th><th>类型</th><th>方式</th><th>备注</th><th>订单号</th>"+
     "</tr></thead><tbody>";
     var ttail = "</tbody></table>";
@@ -303,7 +303,7 @@ Template.dashboard.helpers({
         var caddr =  this_trade.shipping_type=='fetch' ? this_trade.fetch_detail.shop_name : this_trade.receiver_address;
 
         //if ( todx.indexOf(idx) > -1 ) tbody+="<td rowspan='"+ttrsp+"'>"+caddr+"</td>";
-        tbody += todx.indexOf(idx)>-1 ? '<td>'+ccity+'</td>'+'<td>'+cdistrict+'</td>'+'<td>'+caddr+'</td>' : '<td>..</td><td>..</td><td>..</td>';
+        tbody += todx.indexOf(idx)>-1 ? '<td>'+ccity+cdistrict+caddr+'</td>' : '<td>..</td>';
         var cmobile = this_trade.shipping_type == 'fetch' ? this_trade.fetch_detail.fetcher_mobile :  this_trade.receiver_mobile;
         //if ( todx.indexOf(idx) > -1 ) tbody+="<td rowspan='"+ttrsp+"'>"+this_trade.receiver_mobile+"</td>";
         tbody += todx.indexOf(idx)>-1 ? '<td>'+cmobile+'</td>' : '<td>..</td>';
@@ -317,6 +317,9 @@ Template.dashboard.helpers({
         //var shipping_style =  merged_orders[idx].state_str=='已发货' ? '<span style="text-decoration: line-through">' : '<span>';
         //tbody+="<td>"+shipping_style+merged_orders[idx].title+"</span></td>";
         tbody+= merged_orders[idx].state_str=='已发货' ? '<td>Y</td>' : '<td></td>';
+        //tbody+="<td>"+merged_orders[idx].sku_id+"</td>";
+        //tbody+="<td>"+merged_orders[idx].sku_unique_code+"</td>";
+        tbody+="<td>"+merged_orders[idx].outer_item_id+"</td>";
         tbody+="<td>"+merged_orders[idx].title+"</td>";
         tbody+="<td>"+merged_orders[idx].sku_properties_name+"</td>";
         tbody+="<td>"+merged_orders[idx].num+"</td>";
