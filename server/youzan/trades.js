@@ -67,8 +67,10 @@ Meteor.methods({
     lines.A='B';
     lines.B='C';
     lines.C='D';
-    lines.D='W'; //W and Z is reserverd for external temporary route & self route
-    lines.W='Z'; //KD is reserved for express
+    lines.D='W1'; //W and Z is reserverd for external temporary route & self route
+    lines.W='W1'; // for compliant usage for 
+    lines.W1='W2'; 
+    lines.W2="Z"; //KD is reserved for express
     var new_liner = lines[liner];
     if (new_liner === undefined ) new_liner = ' '; //both null & undefined
     Trades.update({_id: id}, {$set: {liner: new_liner}});
